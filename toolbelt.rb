@@ -1,5 +1,5 @@
 dep 'toolbelt' do
-  requires 'less.bin', 'curl.bin', 'bzip2.bin', 'patch.bin', 'htop.bin', 'atop.bin', 'python.bin', 'lsof.bin', 'bash-completion.bin', 'logwatch.bin', 'mailutils.bin', 'psmisc.bin'
+  requires 'less.bin', 'curl.bin', 'bzip2.bin', 'patch.bin', 'htop.bin', 'atop.bin', 'python.bin', 'lsof.bin', 'bash-completion.bin', 'logwatch.bin', 'mailutils.bin', 'psmisc.bin', 'lsb-release.bin'
 end
 
 dep 'less.bin', :template => 'bin' do
@@ -83,5 +83,12 @@ dep 'psmisc.bin', :template => 'bin' do
   installs {
     via :apt, 'psmisc'
   }
-  provides 'psmisc'
+  provides []
+end
+
+dep 'lsb-release.bin', :template => 'bin' do
+  installs {
+    via :apt, 'lsb-release'
+  }
+  provides 'lsb_release'
 end
