@@ -1,94 +1,45 @@
 dep 'toolbelt' do
-  requires 'less.bin', 'curl.bin', 'bzip2.bin', 'patch.bin', 'htop.bin', 'atop.bin', 'python.bin', 'lsof.bin', 'bash-completion.bin', 'logwatch.bin', 'mailutils.bin', 'psmisc.bin', 'lsb-release.bin'
+  requires [
+    'less.bin',
+    'curl.bin',
+    'bzip2.bin',
+    'patch.bin',
+    'htop.bin',
+    'atop.bin',
+    'python.bin',
+    'lsof.bin',
+    'bash-completion.lib',
+    'logwatch.bin',
+    'mailutils.bin',
+    'psmisc.lib',
+    'lsb-release.bin'
+  ]
 end
 
-dep 'less.bin', :template => 'bin' do
-  installs {
-    via :apt, 'less'
-  }
-  provides 'less'
-end
+# For these, the installs and provides both match the dep name, so they
+# can be ommitted. Also, the '.bin' in the name sets the template, so
+# there's no need for the :template option.
+dep 'less.bin'
+dep 'curl.bin'
+dep 'bzip2.bin'
+dep 'patch.bin'
+dep 'htop.bin'
+dep 'atop.bin'
+dep 'python.bin'
+dep 'lsof.bin'
+dep 'logwatch.bin'
 
-dep 'curl.bin', :template => 'bin' do
-  installs {
-    via :apt, 'curl'
-  }
-  provides 'curl'
-end
+# These don't provide a binary, so should use 'lib' instead -- if provides
+# is empty, babushka has no binary to check for.
+dep 'bash-completion.lib'
+dep 'psmisc.lib'
 
-dep 'bzip2.bin', :template => 'bin' do
-  installs {
-    via :apt, 'bzip2'
-  }
-  provides 'bzip2'
-end
-
-dep 'patch.bin', :template => 'bin' do
-  installs {
-    via :apt, 'patch'
-  }
-  provides 'patch'
-end
-
-dep 'htop.bin', :template => 'bin' do
-  installs {
-    via :apt, 'htop'
-  }
-  provides 'htop'
-end
-
-dep 'atop.bin', :template => 'bin' do
-  installs {
-    via :apt, 'atop'
-  }
-  provides 'atop'
-end
-
-dep 'python.bin', :template => 'bin' do
-  installs {
-    via :apt, 'python'
-  }
-  provides 'python'
-end
-
-dep 'lsof.bin', :template => 'bin' do
-  installs {
-    via :apt, 'lsof'
-  }
-  provides 'lsof'
-end
-
-dep 'bash-completion.bin', :template => 'bin' do
-  installs {
-    via :apt, 'bash-completion'
-  }
-  provides []
-end
-
-dep 'logwatch.bin', :template => 'bin' do
-  installs {
-    via :apt, 'logwatch'
-  }
-  provides 'logwatch'
-end
-
-dep 'mailutils.bin', :template => 'bin' do
-  installs {
-    via :apt, 'mailutils'
-  }
+# For these two, you've got a custom provides, but installs can still be
+# inferred from the dep name.
+dep 'mailutils.bin' do
   provides 'mail.mailutils'
 end
 
-dep 'psmisc.bin', :template => 'bin' do
-  installs {
-    via :apt, 'psmisc'
-  }
-  provides []
-end
-
-dep 'lsb-release.bin', :template => 'bin' do
-  installs {
-    via :apt, 'lsb-release'
-  }
+dep 'lsb-release.bin' do
   provides 'lsb_release'
 end
